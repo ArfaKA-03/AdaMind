@@ -1,0 +1,95 @@
+.flashcards-container {
+  padding: 40px;
+  min-height: 90vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+.flashcards-container.dark {
+  background: #0f172a;
+  color: #fff;
+}
+
+.flashcards-container.light {
+  background: #f1f5f9;
+  color: #000;
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+.input-section input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  width: 250px;
+  background: var(--input-bg);
+  color: inherit;
+}
+
+.input-section button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  background: #38bdf8;
+  color: #000;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.input-section button:hover {
+  background: #0ea5e9;
+}
+
+.flashcards-list h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #93c5fd;
+}
+
+.flashcard-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.flashcard {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.flashcards-container.light .flashcard {
+  background: #e2e8f0;
+}
+
+.flashcard:hover {
+  transform: translateY(-5px);
+}
+
+.flashcard h4 {
+  color: #a5b4fc;
+  margin-bottom: 8px;
+}
+
+.flashcard p {
+  color: #e2e8f0;
+}
+
+.no-flashcards {
+  color: #cbd5e1;
+}
+
+.dark-section {
+  background: #1e293b;
+  color: white;
+}
+
+.light-section {
+  background: #f1f5f9;
+  color: black;
+}

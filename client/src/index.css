@@ -1,0 +1,43 @@
+/* Light Mode */
+.light-mode {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f4f4f4;
+}
+
+/* Dark Mode */
+.dark-mode {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+  --card-bg: #2a2a2a;
+}
+
+/* Apply globally */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Smooth transitions for interactive elements */
+button, input, textarea {
+  transition: all 0.3s ease;
+}
+
+/* App content wrapper to ensure full height and proper spacing */
+.app-content {
+  min-height: 100vh;
+  padding: 40px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card, .navbar, .footer {
+  background-color: var(--card-bg);
+  transition: background-color 0.3s;
+}

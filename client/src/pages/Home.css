@@ -1,0 +1,204 @@
+.home-container {
+  background-color: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 60px 80px;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: left;
+  margin-bottom: 100px;
+}
+
+.hero-content {
+  max-width: 45%;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero-content p {
+  margin: 20px 0;
+  color: #cbd5e1;
+  font-size: 1.1rem;
+}
+
+.hero-image img {
+  width: 380px;
+  border-radius: 12px;
+}
+
+/* CTA Button */
+.cta-btn {
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #2563eb;
+}
+
+/* Learn Section */
+.learn-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.learn-section p {
+  color: #94a3b8;
+  margin-bottom: 40px;
+}
+
+.feature-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 30px;
+  width: 280px;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.feature-card h3 {
+  margin: 10px 0;
+}
+
+.icon {
+  font-size: 1.8rem;
+  color: #3b82f6;
+}
+
+/* CTA Section */
+.cta-section {
+  margin-top: 100px;
+  background-color: #1e293b;
+  border-radius: 16px;
+  padding: 60px 40px;
+}
+
+.cta-section h2 {
+  font-size: 1.8rem;
+}
+
+.cta-section p {
+  color: #cbd5e1;
+  margin: 15px 0 30px;
+}
+
+/* ✅ Responsive Styles */
+
+/* Tablet (≤1024px) */
+@media (max-width: 1024px) {
+  .home-container {
+    padding: 50px 40px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .hero {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .hero-image img {
+    width: 320px;
+    margin-bottom: 20px;
+  }
+
+  .feature-grid {
+    gap: 15px;
+  }
+}
+
+/* Mobile (≤768px) */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 40px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-image img {
+    width: 280px;
+  }
+
+  .cta-section {
+    padding: 40px 20px;
+  }
+
+  .feature-card {
+    width: 90%;
+    text-align: center;
+  }
+
+  .learn-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .cta-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Small Mobile (≤480px) */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .cta-btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+
+  .cta-section {
+    margin-top: 60px;
+    padding: 30px 15px;
+  }
+
+  .feature-card {
+    padding: 25px 20px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .learn-section h2 {
+    font-size: 1.4rem;
+  }
+}

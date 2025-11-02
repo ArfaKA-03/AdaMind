@@ -1,0 +1,18 @@
+.landing-container {
+  max-width: 700px;
+  margin: 50px auto;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.quiz-section {
+  text-align: left;
+  margin-top: 30px;
+}
+
+.quiz-question {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #f5f5f5;
+}

@@ -1,0 +1,39 @@
+.result-page {
+  padding: 48px 80px;
+  background: #0f172a;
+  color: #fff;
+}
+
+.result-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #0b1220;
+  border-radius: 12px;
+  padding: 28px;
+  border: 1px solid #1e293b;
+  text-align: left;
+}
+
+.result-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.secondary-btn {
+  background: #1e293b;
+  color: #cbd5e1;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cta-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
