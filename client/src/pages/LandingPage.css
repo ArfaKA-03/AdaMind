@@ -1,18 +1,160 @@
+/* ===============================
+   🌟 LANDING PAGE STYLING (Consistent with Flashcards Page)
+   =============================== */
+
+.landing-page {
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--bg-color, #f9fafb);
+  color: var(--text-color, #111827);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ===============================
+   ☀️ LIGHT & 🌙 DARK THEME
+   =============================== */
+.landing-page.light {
+  background: var(--bg-color, #f9fafb);
+  color: var(--text-color, #9e0059);
+}
+
+.landing-page.dark {
+  background: #1a0a2b;
+  color: #fff;
+}
+
+/* ===============================
+   📦 Container Styling
+   =============================== */
 .landing-container {
+  width: 100%;
   max-width: 700px;
-  margin: 50px auto;
+  padding: 40px 30px;
+  border-radius: 16px;
   text-align: center;
-  font-family: sans-serif;
+  background: var(--card-bg, #ffffff);
+  box-shadow: 0 6px 24px rgba(158, 0, 89, 0.08);
+  transition: all 0.3s ease;
 }
 
-.quiz-section {
-  text-align: left;
-  margin-top: 30px;
+/* Light mode container accent */
+.landing-page.light .landing-container {
+  background: #96577b; /* soft lavender shade */
+  color: #fff;
 }
 
-.quiz-question {
+.landing-page.dark .landing-container {
+  background: #1e293b;
+  color: #fff;
+}
+
+.landing-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+/* ===============================
+   📝 Text Styles
+   =============================== */
+.landing-container h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #000; /* 🖤 Text color in light mode */
+}
+
+/* Keep dark mode heading white for contrast */
+.landing-page.dark .landing-container h1 {
+  color: #fff;
+}
+
+
+.landing-container .subtitle {
   margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  background: #f5f5f5;
+  color: var(--text-color, #111827);
+}
+
+.landing-page.dark .landing-container .subtitle {
+  color: #e2e8f0;
+}
+
+/* ===============================
+   🔤 Input Field
+   =============================== */
+.landing-container input {
+  width: 80%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--input-border, #d1d5db);
+  background: var(--input-bg, #f3f4f6);
+  color: var(--text-color, #111827);
+  margin-bottom: 16px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.landing-page.dark .landing-container input {
+  background: #fff;
+  border-color: #96577b;
+  color: #000;
+}
+
+.landing-container input:focus {
+  border-color: var(--accent-color, #9e0059);
+  box-shadow: 0 0 6px var(--accent-glow, rgba(158, 0, 89, 0.25));
+}
+
+/* ===============================
+   🔘 Button
+   =============================== */
+.landing-container button {
+  background: #9e0059; /* Explicit light mode button color */
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.landing-container button:hover {
+  background: #96577b;
+  transform: translateY(-2px);
+}
+
+.landing-container button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===============================
+   🌙 Dark Mode Button Override
+   =============================== */
+.landing-page.dark .landing-container button {
+  background: #9e0059;
+  color: #fff;
+}
+
+/* ===============================
+   📱 Responsive Design
+   =============================== */
+@media (max-width: 480px) {
+  .landing-container {
+    padding: 30px 20px;
+  }
+
+  .landing-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .landing-container input {
+    width: 90%;
+  }
 }

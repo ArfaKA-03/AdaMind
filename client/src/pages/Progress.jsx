@@ -3,7 +3,12 @@ import "./Progress.css";
 
 function Progress() {
   const [progress, setProgress] = useState([]);
+  const [theme, setTheme] = useState("dark");
   const user = JSON.parse(localStorage.getItem("quizwhizz_user"));
+
+  useEffect(() => {
+    document.body.className = theme === "light" ? "light-theme" : "";
+  }, [theme]);
 
   useEffect(() => {
     if (!user?._id) return;
@@ -32,7 +37,25 @@ function Progress() {
 
   return (
     <div className="progress-container">
-      <h2 className="progress-title">{user.name || "User"}'s Quiz Progress</h2>
+      <button
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          padding: "8px 14px",
+          backgroundColor: "var(--accent-color)",
+          border: "none",
+          borderRadius: "8px",
+          color: "#000",
+          cursor: "pointer",
+        }}
+      >
+        {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+      </button>
+
+      {/* ✅ Removed “Quiz Progress” text here */}
+      <h2 className="progress-title">{user?.name || "User"}</h2>
 
       {progress.length === 0 ? (
         <p className="no-data">No quizzes attempted yet.</p>

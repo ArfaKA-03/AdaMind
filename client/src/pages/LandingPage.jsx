@@ -1,14 +1,21 @@
 // src/pages/LandingPage.jsx
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext"; // import context
+import "./LandingPage.css";
 
 const LandingPage = () => {
+  const { darkMode } = useContext(ThemeContext); // use context
   const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleGenerateQuiz = async () => {
-    if (!topic.trim()) return alert("Enter a topic first.");
+    if (!topic.trim()) {
+      alert("Please enter a topic first.");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await fetch("http://localhost:5000/api/quiz/generate", {
@@ -17,42 +24,40 @@ const LandingPage = () => {
         body: JSON.stringify({ topic }),
       });
 
-      if (!response.ok) {
-        let errMsg = "Quiz generation failed.";
-        try {
-          const errData = await response.json();
-          if (errData && errData.message) errMsg = errData.message;
-        } catch {}
-        throw new Error(errMsg);
-      }
-
       const data = await response.json();
-      if (data.success && data.quiz) {
-        // ✅ Pass quiz data to QuizPage via router state
+
+      if (response.ok && data.success && data.quiz) {
         navigate("/quiz", { state: { topic, quiz: data.quiz } });
       } else {
-        alert("Quiz generation failed.");
+        alert(data.message || "Failed to generate quiz. Try again.");
       }
     } catch (err) {
-      console.error(err);
-      alert("Error connecting to backend: " + (err.message || "Unknown error"));
+      console.error("Error:", err);
+      alert("Server error while generating quiz.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="landing-container">
-      <h1>AI Learning Assistant</h1>
-      <input
-        type="text"
-        placeholder="Enter topic (e.g., AI, Cloud, ML)"
-        value={topic}
-        onChange={(e) => setTopic(e.target.value)}
-      />
-      <button onClick={handleGenerateQuiz} disabled={loading}>
-        {loading ? "Generating..." : "Generate Quiz"}
-      </button>
+    <div className={`landing-page ${darkMode ? "dark" : "light"}`}>
+      <div className="landing-container">
+        <h1>Generate a Quiz with AdaMind</h1>
+        <p className="subtitle">
+          Type any topic (like AI, Cloud Computing, or DBMS) and let AdaMind create questions for you.
+        </p>
+
+        <input
+          type="text"
+          placeholder="Enter topic..."
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+        />
+
+        <button onClick={handleGenerateQuiz} disabled={loading}>
+          {loading ? "Generating..." : "Generate Quiz"}
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,43 +1,158 @@
-/* Light Mode */
-.light-mode {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --card-bg: #f4f4f4;
+/* =========================
+   🎨 DEFAULT THEME VARIABLES
+   ========================= */
+:root {
+  --bg-color: #f9f7ff;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.12);
+  --input-border: #ccc;
+  --input-bg: #fff;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(158, 0, 89, 0.2);;
+  --button-text: #fff;
+  --navbar-bg: #ffffff;
+  --navbar-text: #0f172a;
+  --navbar-border: #e2e8f0;
+  --dropdown-bg: #ffffff;
+  --dropdown-hover-bg: #e2e8f0;
+  --dropdown-text: #1e293b;
+  --bg-gradient-start: #e3e2ff;
+  --bg-gradient-end: #f9f7ff;
 }
 
-/* Dark Mode */
+/* =========================
+   🌙 DARK THEME VARIABLES
+   ========================= */
+[data-theme="dark"],
 .dark-mode {
-  --bg-color: #1e1e1e;
-  --text-color: #ffffff;
-  --card-bg: #2a2a2a;
+  --bg-color: #1a0a2b;
+  --text-color: #f5f5f5;
+  --card-bg: #2b2b3c;
+  --shadow-color: rgba(158, 0, 89, 0.2);
+  --shadow-hover: rgba(158, 0, 89, 0.2);
+  --input-border: #555;
+  --input-bg: #3a3a4d;
+  --accent-color: #a20c61;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(158, 0, 89, 0.2);
+  --button-text: #fff;
+  --navbar-bg: #1e293b;
+  --navbar-text: #ffffff;
+  --navbar-border: #96577b;
+  --dropdown-bg: #1e293b;
+  --dropdown-hover-bg: #0f172a;
+  --dropdown-text: #e2e8f0;
+  --bg-gradient-start: #1c1c2a;
+  --bg-gradient-end: #2b2b3c;
 }
-
-/* Apply globally */
+[data-theme="light"],
+.light-mode {
+  --bg-color: #907283;
+  --text-color: #000;
+  --input-bg: #605d60;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
+/* =========================
+   🌐 GLOBAL ELEMENTS
+   ========================= */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
+  margin: 0;
+  font-family: "Poppins", sans-serif;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Links */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* Smooth transitions for interactive elements */
-button, input, textarea {
+button,
+input,
+textarea {
+  font-family: inherit;
   transition: all 0.3s ease;
 }
 
-/* App content wrapper to ensure full height and proper spacing */
+/* =========================
+   🧩 MAIN APP WRAPPER
+   ========================= */
 .app-content {
   min-height: 100vh;
   padding: 40px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.card, .navbar, .footer {
+/* =========================
+   🧱 COMMON COMPONENTS
+   ========================= */
+.card,
+.navbar,
+.footer {
   background-color: var(--card-bg);
-  transition: background-color 0.3s;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 10px var(--shadow-hover);
+}
+
+/* =========================
+   🌈 NAVBAR & DROPDOWN
+   ========================= */
+.navbar {
+  background-color: var(--navbar-bg);
+  color: var(--navbar-text);
+  border-bottom: 1px solid var(--navbar-border);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a {
+  color: var(--navbar-text);
+  transition: color 0.3s;
+}
+
+.dropdown {
+  background-color: var(--dropdown-bg);
+  color: var(--dropdown-text);
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown:hover {
+  background-color: var(--dropdown-hover-bg);
+}
+
+/* =========================
+   💫 ACCENT STYLING
+   ========================= */
+.accent {
+  color: var(--accent-color);
+}
+
+button.accent-btn {
+  background: var(--accent-color);
+  color: var(--button-text);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--accent-glow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.accent-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 0 15px var(--accent-glow);
 }

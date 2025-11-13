@@ -1,0 +1,130 @@
+:root {
+  /* Background gradient */
+  --bg-gradient-start: #0f172a;  /* Dark navy */
+  --bg-gradient-end: #1e293b;    /* Slightly lighter */
+
+  /* Core colors */
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --text-color: #ffffff;
+
+  /* Inputs */
+  --input-bg: #111827;
+  --input-border: rgba(255, 255, 255, 0.12);
+  --placeholder-color: rgba(255, 255, 255, 0.5);
+
+  /* Buttons */
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(158, 0, 89, 0.2);
+  --button-text: #ffffff;
+
+  /* Shadows */
+  --shadow-color: rgba(158, 0, 89, 0.2);
+  --shadow-hover: rgba(158, 0, 89, 0.2);
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start; /* keep at top */
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.auth-container {
+  width: 90%;
+  max-width: 300px;
+  padding: 30px 15px;
+  margin: 20px auto 0 auto; /* 80px gap from top/navbar */
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: 0 0 25px var(--shadow-color);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+
+/* =========================
+   📝 TITLE
+   ========================= */
+.auth-container h2 {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+/* =========================
+   📋 FORM LAYOUT
+   ========================= */
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =========================
+   ✏️ INPUT FIELDS
+   ========================= */
+.auth-container input {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1.5px solid var(--input-border);
+  border-radius: 10px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.auth-container input::placeholder {
+  color: var(--placeholder-color);
+}
+
+.auth-container input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* =========================
+   🔘 BUTTON
+   ========================= */
+.auth-container button {
+  background-color: #9e0059;
+  color: var(--button-text);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-container button:hover {
+  background-color: #96577b;
+  transform: translateY(-2px);
+}
+
+.auth-container button:active {
+  transform: translateY(1px);
+}
+
+/* =========================
+   📱 RESPONSIVE DESIGN
+   ========================= */
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 0 20px;
+    padding: 30px 20px;
+  }
+}
+
+/* =========================
+   🌗 THEME VARIABLES
+   ========================= */

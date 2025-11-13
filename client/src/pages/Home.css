@@ -1,8 +1,18 @@
+/* src/pages/Home.css */
+
+/* Root container */
 .home-container {
-  background-color: #0f172a;
-  color: white;
+  background-color: #fff; /* light mode background */
+  color: #1a0a2b;         /* light mode text */
   text-align: center;
-  padding: 60px 80px;
+  padding: 20px 30px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark mode support */
+body.dark-mode .home-container {
+  background-color: #1a0a2b; /* dark background */
+  color: #fdf5fd;            /* dark text */
 }
 
 /* Hero Section */
@@ -12,9 +22,18 @@
   align-items: center;
   flex-wrap: wrap;
   text-align: left;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
+  padding: 3rem;
+  background-color: #fdf5fd; /* light card bg */
+  border-radius: 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
+body.dark-mode .hero {
+  background-color: #2c0a2f; /* dark card bg */
+}
+
+/* Hero Content */
 .hero-content {
   max-width: 45%;
 }
@@ -27,8 +46,12 @@
 
 .hero-content p {
   margin: 20px 0;
-  color: #cbd5e1;
+  color: #6b7280; /* light mode secondary text */
   font-size: 1.1rem;
+}
+
+body.dark-mode .hero-content p {
+  color: #d1d5db; /* dark mode secondary text */
 }
 
 .hero-image img {
@@ -38,19 +61,32 @@
 
 /* CTA Button */
 .cta-btn {
-  background-color: #3b82f6;
-  color: #fff;
+  background-color: #9e0059; /* 🌸 theme color */
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .cta-btn:hover {
-  background-color: #2563eb;
+  background-color: #b83b7d; /* slightly lighter hover shade */
+  transform: translateY(-2px);
 }
+
+/* Dark mode - keep consistent theme color */
+body.dark-mode .cta-btn {
+  background-color: #9E0059; /* softer tone for dark background */
+  color: #fff;
+}
+
+body.dark-mode .cta-btn:hover {
+  background-color: #b56b94;
+}
+
 
 /* Learn Section */
 .learn-section h2 {
@@ -59,24 +95,43 @@
 }
 
 .learn-section p {
-  color: #94a3b8;
+  color: #6b7280; /* light mode secondary text */
   margin-bottom: 40px;
 }
 
+body.dark-mode .learn-section p {
+  color: #d1d5db; /* dark mode secondary text */
+}
+
+/* Feature Grid */
 .feature-grid {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1200px;
+  text-align: center;
 }
 
 .feature-card {
-  background-color: #1e293b;
+  background-color: #fdf5fd; /* light card bg */
+  color: #1a0a2b;
   border-radius: 12px;
-  padding: 30px;
+  padding: 1.5rem;
   width: 280px;
-  text-align: left;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(158,0,89,0.2);
+  transition: all 0.3s;
+}
+
+body.dark-mode .feature-card {
+  background-color: #2c0a2f; /* dark mode card bg */
+  color: #fdf5fd;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
 }
 
 .feature-card h3 {
@@ -85,15 +140,24 @@
 
 .icon {
   font-size: 1.8rem;
-  color: #3b82f6;
+  color: #9e0059; /* icon uses dark shade */
+}
+
+body.dark-mode .icon {
+  color: #96577b; /* lighter accent for dark mode */
 }
 
 /* CTA Section */
 .cta-section {
   margin-top: 100px;
-  background-color: #1e293b;
+  background-color: #fdf5fd; /* light mode */
   border-radius: 16px;
   padding: 60px 40px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode .cta-section {
+  background-color: #2c0a2f; /* dark mode */
 }
 
 .cta-section h2 {
@@ -101,17 +165,19 @@
 }
 
 .cta-section p {
-  color: #cbd5e1;
+  color: #6b7280; /* light mode secondary text */
   margin: 15px 0 30px;
+}
+
+body.dark-mode .cta-section p {
+  color: #d1d5db; /* dark mode secondary text */
 }
 
 /* ✅ Responsive Styles */
 
 /* Tablet (≤1024px) */
 @media (max-width: 1024px) {
-  .home-container {
-    padding: 50px 40px;
-  }
+  .home-container { padding: 50px 40px; }
 
   .hero-content {
     max-width: 100%;
@@ -124,81 +190,38 @@
     align-items: center;
   }
 
-  .hero-image img {
-    width: 320px;
-    margin-bottom: 20px;
-  }
+  .hero-image img { width: 320px; margin-bottom: 20px; }
 
-  .feature-grid {
-    gap: 15px;
-  }
+  .feature-grid { gap: 15px; }
 }
 
 /* Mobile (≤768px) */
 @media (max-width: 768px) {
-  .home-container {
-    padding: 40px 20px;
-  }
+  .home-container { padding: 40px 20px; }
 
-  .hero-content h1 {
-    font-size: 2rem;
-  }
+  .hero-content h1 { font-size: 2rem; }
+  .hero-content p { font-size: 1rem; }
+  .hero-image img { width: 280px; }
 
-  .hero-content p {
-    font-size: 1rem;
-  }
+  .cta-section { padding: 40px 20px; }
 
-  .hero-image img {
-    width: 280px;
-  }
+  .feature-card { width: 90%; text-align: center; }
 
-  .cta-section {
-    padding: 40px 20px;
-  }
-
-  .feature-card {
-    width: 90%;
-    text-align: center;
-  }
-
-  .learn-section h2 {
-    font-size: 1.6rem;
-  }
-
-  .cta-section h2 {
-    font-size: 1.5rem;
-  }
+  .learn-section h2 { font-size: 1.6rem; }
+  .cta-section h2 { font-size: 1.5rem; }
 }
 
 /* Small Mobile (≤480px) */
 @media (max-width: 480px) {
-  .hero-content h1 {
-    font-size: 1.8rem;
-  }
+  .hero-content h1 { font-size: 1.8rem; }
+  .hero-content p { font-size: 0.95rem; }
 
-  .hero-content p {
-    font-size: 0.95rem;
-  }
+  .cta-btn { padding: 10px 18px; font-size: 0.9rem; }
 
-  .cta-btn {
-    padding: 10px 18px;
-    font-size: 0.9rem;
-  }
+  .cta-section { margin-top: 60px; padding: 30px 15px; }
 
-  .cta-section {
-    margin-top: 60px;
-    padding: 30px 15px;
-  }
+  .feature-card { padding: 25px 20px; }
 
-  .feature-card {
-    padding: 25px 20px;
-  }
-
-  .feature-card h3 {
-    font-size: 1.1rem;
-  }
-
-  .learn-section h2 {
-    font-size: 1.4rem;
-  }
+  .feature-card h3 { font-size: 1.1rem; }
+  .learn-section h2 { font-size: 1.4rem; }
 }

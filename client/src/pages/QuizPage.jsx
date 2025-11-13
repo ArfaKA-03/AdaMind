@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
 import "./QuizPage.css";
 
 function QuizPage() {
+  const { darkMode } = useContext(ThemeContext); // ✅ use ThemeContext
   const location = useLocation();
   const navigate = useNavigate();
+
   const [topic, setTopic] = useState(location.state?.topic || "");
   const [quiz, setQuiz] = useState(location.state?.quiz || []);
   const [answers, setAnswers] = useState({});
@@ -14,14 +17,12 @@ function QuizPage() {
     e.preventDefault();
     if (!topic.trim()) return alert("Enter a topic first!");
     setLoading(true);
-
     try {
       const res = await fetch("http://localhost:5000/api/quiz/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic: topic.trim() }),
       });
-
       const data = await res.json();
       if (data.success) {
         const quizWithTopic = data.quiz.map((q) => ({ ...q, topic: topic.trim() }));
@@ -62,30 +63,18 @@ function QuizPage() {
       }
     });
 
-    // Save locally for ResultPage
     sessionStorage.setItem("lastScore", String(correctCount));
     sessionStorage.setItem("lastTopic", topic.trim());
     sessionStorage.setItem("wrongQuestions", JSON.stringify(wrongQuestions));
 
-    // Generate summary
     try {
       const response = await fetch("http://localhost:5000/api/quiz/summarize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: user._id,
-          topic: topic.trim(),
-          quiz,
-          correctCount,
-        }),
+        body: JSON.stringify({ userId: user._id, topic: topic.trim(), quiz, correctCount }),
       });
-
       const data = await response.json();
-      if (data.success) {
-        sessionStorage.setItem("lastSummary", data.summary || "");
-      } else {
-        sessionStorage.setItem("lastSummary", "Failed to generate summary.");
-      }
+      sessionStorage.setItem("lastSummary", data.success ? data.summary : "Failed to generate summary.");
     } catch (err) {
       console.error("Error generating summary:", err);
       sessionStorage.setItem("lastSummary", "Error generating summary.");
@@ -95,7 +84,7 @@ function QuizPage() {
   };
 
   return (
-    <div className="quiz-container">
+    <div className={`quiz-container ${darkMode ? "dark" : "light"}`}>
       <h1>Quiz Generator</h1>
       <form onSubmit={handleGenerate}>
         <input
