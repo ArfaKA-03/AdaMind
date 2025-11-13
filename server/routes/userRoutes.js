@@ -30,12 +30,7 @@ router.post("/save-result", async (req, res) => {
     // 🟢 Push to user's quizzes array
     await User.findByIdAndUpdate(userId, {
       $push: {
-        quizzes: {
-          quizId,
-          topic,
-          score,
-          date: new Date(),
-        },
+        quizzes: { quizId, topic, score, date: new Date() },
       },
     });
 
@@ -59,13 +54,30 @@ router.get("/:userId", async (req, res) => {
 
     const results = await Result.find({ userId: user._id }).sort({ date: -1 });
 
-    res.json({
-      success: true,
-      user,
-      results,
-    });
+    res.json({ success: true, user, results });
   } catch (err) {
     console.error("❌ Error fetching progress:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+/* ======================================
+   ✅ Get Saved Flashcards for a User
+====================================== */
+router.get("/:userId/flashcardsprogress", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select("flashcardsprogress");
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+
+    res.json({
+      success: true,
+      flashcards: user.flashcardsprogress || [], // ✅ Correct field name
+    });
+  } catch (err) {
+    console.error("❌ Error fetching flashcards:", err);
     res.status(500).json({ success: false, message: "Server error" });
   }
 });

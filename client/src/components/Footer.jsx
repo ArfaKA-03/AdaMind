@@ -1,17 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom"; // ✅ Use React Router
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
-
   return (
-    <footer>
+    <footer className="footer">
       <div className="footer-links">
         <Link to="/about">About Us</Link>
         <Link to="/pricing">Pricing</Link>
         <Link to="/contact">Contact</Link>
       </div>
-      <p>© 2024 QuizWhizz. All rights reserved.</p>
+      <p>© 2025 AdaMind. All rights reserved.</p>
     </footer>
   );
 }

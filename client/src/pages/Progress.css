@@ -2,44 +2,100 @@
    PROGRESS PAGE STYLES
    ============================ */
 
+/* 🌙 Default (Dark Theme) */
+:root {
+  --bg-color: #160924;
+  --text-color: #f3f4f6;
+  --input-bg: #424142;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+  --muted-color: #94a3b8;
+  --error-color: #f87171;
+  --table-bg: #1f0e31;
+  --table-alt-bg: #160924;
+  --table-border: #334155;
+  --table-text-color: #fff;
+  --shadow-color: rgba(148, 163, 184, 0.15);
+
+  /* New variable for table header so switching theme is explicit & reliable */
+  --table-header-bg: #1e293b;
+}
+
+body.dark-mode,
+.progress-container.dark {
+  --bg-color: #160924;
+  --text-color: #f3f4f6;
+  --input-bg: #424142;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
+body.light-mode,
+.progress-container.light {
+  --bg-color: #907283;
+  --text-color: #fff;
+  --input-bg: #605d60;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+  --table-bg: #2b1b3c;
+  --table-alt-bg: #160924;
+}
+
 .progress-container {
-  background-color: #0f172a;
-  min-height: 100vh;
-  color: #f1f5f9;
+  background-color: var(--bg-color);
+  color: #fff;
+  min-height: 90vh;
   font-family: "Poppins", Arial, sans-serif;
   padding: 50px 20px;
 }
 
 .progress-title {
   text-align: center;
-  color: #38bdf8;
-  font-size: 26px;
+  color: #fff;
+  font-size: 30px;
   margin-bottom: 30px;
-  text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+  text-shadow: 0 0 8px #9e0059;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
+
+/* Light mode override */
+.progress-container.light .progress-title {
+  color: #000;
+  text-shadow: none;
+}
+
 
 .no-data {
   text-align: center;
-  color: #94a3b8;
+  color: var(--muted-color);
   font-size: 16px;
   margin-top: 20px;
 }
 
 .login-message {
   text-align: center;
-  color: #f87171;
+  color: var(--error-color);
   font-size: 18px;
   margin-top: 80px;
 }
 
 /* ===== Table Styling ===== */
+/* wrapper uses table-bg (will change with theme via variables) */
 .table-wrapper {
   max-width: 800px;
   margin: 0 auto;
   overflow-x: auto;
-  background-color: #1e293b;
+  background-color: var(--table-bg);
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(148, 163, 184, 0.15);
+  box-shadow: 0 0 15px var(--shadow-color);
   padding: 10px;
 }
 
@@ -56,10 +112,11 @@
   text-align: center;
 }
 
+/* header uses an explicit header variable so it's visually distinct and switches with theme */
 .progress-table th {
-  background-color: #1e293b;
-  color: #93c5fd;
-  border-bottom: 2px solid #334155;
+  background-color: var(--table-header-bg);
+  color: var(--table-text-color);
+  border-bottom: 2px solid var(--table-border);
   font-weight: 600;
 }
 
@@ -67,16 +124,57 @@
   transition: background-color 0.3s ease;
 }
 
+/* alternate rows */
 .progress-table tr:nth-child(even) {
-  background-color: #0f172a;
+  background-color: var(--table-alt-bg);
 }
 
 .progress-table tr:hover {
-  background-color: #1e293b;
+  background-color: var(--table-bg);
 }
 
 .progress-table td {
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid var(--table-border);
+}
+
+/* ===== Extra explicit rules to ensure the table updates correctly when body gets .light-theme ===== */
+/* These are intentionally explicit to cover cases where other global styles may interfere */
+
+body.light-theme .table-wrapper {
+  background-color: var(--table-bg);
+}
+
+body.light-theme .progress-table th {
+  background-color: var(--table-header-bg);
+  color: var(--table-text-color);
+  border-bottom: 2px solid var(--table-border);
+}
+
+body.light-theme .progress-table tr:nth-child(even) {
+  background-color: var(--table-alt-bg);
+}
+
+body.light-theme .progress-table tr:hover {
+  background-color: var(--table-bg);
+}
+
+/* Also ensure dark (default) is explicit if needed */
+body:not(.light-theme) .table-wrapper {
+  background-color: var(--table-bg);
+}
+
+body:not(.light-theme) .progress-table th {
+  background-color: var(--table-header-bg);
+  color: var(--table-text-color);
+  border-bottom: 2px solid var(--table-border);
+}
+
+body:not(.light-theme) .progress-table tr:nth-child(even) {
+  background-color: var(--table-alt-bg);
+}
+
+body:not(.light-theme) .progress-table tr:hover {
+  background-color: var(--table-bg);
 }
 
 /* ===== Responsive Design ===== */

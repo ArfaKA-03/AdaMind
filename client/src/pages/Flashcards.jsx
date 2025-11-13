@@ -27,7 +27,7 @@ function Flashcards() {
       if (data.success) {
         setFlashcards(data.flashcards);
       } else {
-        alert("❌ Error generating flashcards.");
+        alert("Error generating flashcards.");
       }
     } catch (err) {
       console.error("Error:", err);
@@ -37,8 +37,9 @@ function Flashcards() {
   };
 
   return (
+    <div className={`flashcards-page ${darkMode ? "dark" : "light"}`}>
     <div className={`flashcards-container ${darkMode ? "dark" : "light"}`}>
-      <h2>AI Flashcards</h2>
+      <h1>AI Flashcards</h1>
 
       {/* Input Section */}
       <div className="input-section">
@@ -69,6 +70,7 @@ function Flashcards() {
       ) : (
         <p className="no-flashcards">No flashcards yet. Generate a new set!</p>
       )}
+    </div>
     </div>
   );
 }

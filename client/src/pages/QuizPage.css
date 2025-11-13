@@ -1,125 +1,212 @@
+/* ===============================
+   🧠 QUIZ PAGE STYLING (Matches Landing Page)
+   =============================== */
+
+/* Remove radio input focus/hover outlines */
+.question-block input[type="radio"],
+.question-block input[type="radio"]:focus,
+.question-block input[type="radio"]:hover,
+.question-block input[type="radio"]:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent text selection highlight */
+.question-block::selection {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* Override any focus-visible rules */
+.question-block label:focus-visible,
+.question-block input[type="radio"]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ====================================
+   🌗 THEME VARIABLES (Light / Dark)
+   ==================================== */
+:root {
+  --bg-color: #f9fafb;
+  --text-color: #111827;
+  --input-bg: #f3f4f6;
+  --input-border: #d1d5db;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(59, 130, 246, 0.15);
+  --button-text: #ffffff;
+}
+
+/* Dark theme overrides */
+body.dark-mode,
+.quiz-container.dark {
+  --bg-color: #160924;
+  --text-color: #f3f4f6;
+  --input-bg: #424142;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
+body.light-mode,
+.quiz-container.light {
+  --bg-color: #907283;
+  --text-color: #000;
+  --input-bg: #605d60;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
+/* ====================================
+   🎯 MAIN QUIZ CONTAINER
+   ==================================== */
 .quiz-container {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #1e1e2f;
-  color: white;
+  width: 80%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 40px 30px;
   border-radius: 16px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-}
-
-.question-card {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: #2b2b40;
-  border-radius: 10px;
-}
-
-.options label {
-  display: block;
-  margin: 0.5rem 0;
-  cursor: pointer;
-}
-
-.submit-btn {
-  background-color: #4f46e5;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.options {
-  list-style-type: none;
-  padding: 0;
-}
-
-.option-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 16px;
-}
-
-.option-label input {
-  margin-right: 8px;
-}
-
-.submit-btn,
-.show-exp-btn {
-  margin-top: 20px;
-  padding: 8px 16px;
-  background-color: #6a5acd;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.submit-btn:disabled {
-  background-color: gray;
-  cursor: not-allowed;
-}
-
-.result-page {
   text-align: center;
-  margin-top: 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.explanation-block {
-  background-color: #000;
+/* Heading */
+.quiz-container h1 {
+  font-size: 2rem;
+  margin-bottom: 18px;
+  color: var(--text-color);
+}
+
+/* Input styling */
+.quiz-container input {
+  width: 80%;
+  padding: 10px 12px;
+  font-size: 1.5rem;
   border-radius: 10px;
-  padding: 15px;
-  margin: 10px 0;
+  border: 1.5px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-color);
+  margin-bottom: 9px;
+  margin-top: 20px;
+  outline: none;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-container input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+.quiz-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Buttons */
+.quiz-container button {
+  background: var(--accent-color);
+  color: var(--button-text);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.quiz-container button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.quiz-container button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ====================================
+   🧩 QUIZ DISPLAY SECTION
+   ==================================== */
+.quiz-display {
+  margin-top: 30px;
   text-align: left;
 }
-/* Summary section styling */
-.summary-box {
-  background-color: #000;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  text-align: justify;
-  line-height: 1.6;
-  font-size: 16px;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  white-space: pre-wrap; /* preserves paragraph breaks from AI */
+
+/* Question block */
+.question-block {
+  background: var(--input-bg);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Title spacing inside result section */
-.result-page h2,
-.result-page h3 {
+.question-block p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-color);
   margin-bottom: 12px;
 }
 
-/* Make explanation cards consistent */
-.explanation-block {
-  background-color: #000;
+/* Options */
+.question-block label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-left: -550px;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  line-height: 1.4;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.question-block input[type="radio"] {
+  margin-right: -550px;
+  flex-shrink: 0;
+}
+
+/* Submit button inside quiz display */
+.quiz-display button {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
   border-radius: 10px;
-  padding: 15px;
-  margin: 10px auto;
-  width: 80%;
-  text-align: left;
-  line-height: 1.5;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.perfect-score {
-  font-size: 1.3rem;
-  color: #27ae60;
-  font-weight: bold;
-  margin-top: 10px;
-  animation: pop 0.6s ease;
-}
-
-@keyframes pop {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.5;
+/* ====================================
+   📱 RESPONSIVE DESIGN
+   ==================================== */
+@media (max-width: 480px) {
+  .quiz-container {
+    padding: 30px 20px;
   }
-  100% {
-    transform: scale(1);
-    opacity: 1;
+
+  .quiz-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .question-block {
+    padding: 15px;
   }
 }

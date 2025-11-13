@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
 import "./ResultPage.css";
 
 function ResultPage() {
   const navigate = useNavigate();
+  const { darkMode } = useContext(ThemeContext); // use global theme
+
   const [topic, setTopic] = useState("");
   const [score, setScore] = useState(null);
   const [summary, setSummary] = useState("");
@@ -13,6 +16,9 @@ function ResultPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Optional: add a class to body/html if needed
+    // Not required if CSS uses [data-theme] attribute or body classes in ThemeContext
+
     setTopic(sessionStorage.getItem("lastTopic") || "N/A");
     setScore(Number(sessionStorage.getItem("lastScore")) || 0);
     setSummary(sessionStorage.getItem("lastSummary") || "Summary not available.");

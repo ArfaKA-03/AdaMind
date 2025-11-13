@@ -9,12 +9,12 @@ export const ThemeProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    // ✅ Apply theme class to body
-    document.body.className = darkMode ? "dark-theme" : "light-theme";
+    // ✅ Unified theme class names
+    document.body.className = darkMode ? "dark-mode" : "light-mode";
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  const toggleTheme = () => setDarkMode(!darkMode);
+  const toggleTheme = () => setDarkMode((prev) => !prev);
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleTheme }}>

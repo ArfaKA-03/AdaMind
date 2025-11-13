@@ -1,6 +1,7 @@
 // src/pages/Signup.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Signup.css";
 
 function Signup({ onSignupSuccess }) {
   const [name, setName] = useState("");
@@ -27,7 +28,7 @@ function Signup({ onSignupSuccess }) {
         // ✅ Optional callback for parent component
         if (onSignupSuccess) onSignupSuccess(data.user);
 
-        alert("Signup successful!");
+        console.log("Signup successful!");
         navigate("/landing");
       } else {
         alert(data.message || "Signup failed");
@@ -39,37 +40,37 @@ function Signup({ onSignupSuccess }) {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Signup</h2>
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        <button type="submit">Signup</button>
-      </form>
+    <div className="auth-page">
+      <div className="auth-container">
+        <h2>Signup</h2>
+        <form onSubmit={handleSignup}>
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Signup</button>
+        </form>
+      </div>
     </div>
   );
+
 }
 
 export default Signup;

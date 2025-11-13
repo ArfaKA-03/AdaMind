@@ -2,7 +2,8 @@
 import React from "react";
 import "./Home.css";
 import { FaLightbulb, FaChartLine, FaBook } from "react-icons/fa";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import aiImage from "../assets/img.jpg";
 
 function Home() {
   const navigate = useNavigate();
@@ -14,27 +15,28 @@ function Home() {
         <div className="hero-content">
           <h1>Your Personal <br /> AI Study Partner</h1>
           <p>AI-powered quizzes and flashcards tailored just for you. Master any subject with ease.</p>
-          <button className="cta-btn" onClick={() => navigate("/signup")}>Get Started for Free</button>
+          <button className="cta-btn" onClick={() => navigate("/signup")}>Get Started</button>
         </div>
         <div className="hero-image">
-          <img src="https://cdn.pixabay.com/photo/2023/05/08/14/56/ai-7980401_1280.jpg" alt="AI graphic" />
+          <img src={aiImage} alt="AI graphic" />
         </div>
       </section>
 
       {/* Learn Section */}
       <section className="learn-section">
         <h2>Learn Smarter, Not Harder</h2>
-        <p>QuizWhizz uses AI to create a unique learning experience that adapts to your needs, helping you focus on what matters most.</p>
+        <p>AdaMind uses AI to create a unique learning experience that adapts to your needs, helping you focus on what matters most.</p>
 
         <div className="feature-grid">
           <div className="feature-card">
             <FaLightbulb className="icon" />
             <h3>Personalized Quizzes</h3>
-            <p>Our AI generates adaptive quizzes based on your learning style and knowledge gaps.</p>
+            <p>Create tailored quizzes instantly based on your input.</p>
+
           </div>
           <div className="feature-card">
             <FaBook className="icon" />
-            <h3>Mistake-Based Flashcards</h3>
+            <h3>Flashcards Geneartion</h3>
             <p>Automatically turn your mistakes into smart flashcards to reinforce weak spots.</p>
           </div>
           <div className="feature-card">
@@ -44,13 +46,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      {/* Call to Action
-      <section className="cta-section">
-        <h2>Ready to boost your grades?</h2>
-        <p>Sign up now and start your personalized learning journey with QuizWhizz.</p>
-        <button className="cta-btn" onClick={() => navigate("/signup")}>Get Started for Free</button>
-      </section> */}
     </div>
   );
 }

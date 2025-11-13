@@ -1,31 +1,57 @@
+/* ===============================
+   🌗 FOOTER (Dynamic Theming)
+   =============================== */
+
 .footer {
-  background-color: #0f172a;
+  background-color: #fff;          /* 🌞 Light mode background */
+  color: #1a0a2b;                 /* Light mode text */
   text-align: center;
-  padding: 40px 0;
-  border-top: 1px solid #1e293b;
-  color: #94a3b8;
+  padding: 20px 0;
+  border-top: 1px solid #9e0059;  /* Theme accent border */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* 🌙 Dark Mode Footer */
+body.dark-mode .footer {
+  background-color: #1a0a2b;  /* Dark mode background */
+  color: #fdf5fd;             /* Light text for contrast */
+}
+
+/* Footer Links */
 .footer-links {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  flex-wrap: wrap;
   gap: 30px;
   margin-bottom: 10px;
 }
 
 .footer-links a {
-  color: #cbd5e1;
+  color: #6b7280; /* Default link color for light mode */
   font-size: 0.95rem;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.footer-links a:hover {
-  color: #f1f5f9;
+/* Dark mode links */
+body.dark-mode .footer-links a {
+  color: #d1d5db;
 }
 
-/* ✅ Responsive adjustments */
+/* Hover effect */
+.footer-links a:hover {
+  color: #9e0059; /* Theme accent color */
+}
+
+.footer p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ===============================
+   📱 RESPONSIVE DESIGN
+   =============================== */
+
 @media (max-width: 768px) {
   .footer {
     padding: 30px 10px;
