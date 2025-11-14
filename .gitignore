@@ -4,7 +4,7 @@ client/node_modules
 server/node_modules
 
 # Build outputs
-client/dist
+client/build
 dist
 server/dist
 
