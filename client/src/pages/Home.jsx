@@ -3,7 +3,7 @@ import React from "react";
 import "./Home.css";
 import { FaLightbulb, FaChartLine, FaBook } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import aiImage from "../assets/img.jpg";
+import aiImage from "../assets/fp.jpg";
 
 function Home() {
   const navigate = useNavigate();

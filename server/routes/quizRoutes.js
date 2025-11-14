@@ -158,4 +158,28 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
+// -------- GET SAVED FLASHCARDS FOR USER --------
+router.get("/user/:id/flashcardsprogress", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    // Return user's saved flashcards
+    res.json({
+      success: true,
+      flashcards: user.flashcards || [], // empty array if none
+    });
+  } catch (err) {
+    console.error("❌ Error fetching flashcards:", err);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching flashcards",
+      error: err.message,
+    });
+  }
+});
+
 export default router;
