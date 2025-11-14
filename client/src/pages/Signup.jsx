@@ -9,15 +9,23 @@ function Signup({ onSignupSuccess }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  // Dynamic API URL from env
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
+
+      // Check if backend responded
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
 
       const data = await res.json();
 
@@ -35,7 +43,9 @@ function Signup({ onSignupSuccess }) {
       }
     } catch (err) {
       console.error("Signup error:", err);
-      alert("Signup failed. Please try again.");
+      alert(
+        "Signup failed. Please check your network or try again later."
+      );
     }
   };
 
@@ -70,7 +80,6 @@ function Signup({ onSignupSuccess }) {
       </div>
     </div>
   );
-
 }
 
 export default Signup;
