@@ -6,34 +6,33 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // ===============================
-// 🟢 Load .env
+// Load .env
 // ===============================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, ".env") });
 
 // ===============================
-// 🟢 Initialize App
+// Initialize App
 // ===============================
 const app = express();
-
-// ===============================
-// 🟢 Middleware
-// ===============================
 app.use(express.json());
 
+// ===============================
+// CORS
+// ===============================
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? process.env.FRONTEND_URL // set FRONTEND_URL in Render env
-        : "http://localhost:3000", // your React dev server
+        ? process.env.FRONTEND_URL // Render frontend URL
+        : "http://localhost:3000",
     credentials: true,
   })
 );
 
 // ===============================
-// 🟢 MongoDB Connection
+// MongoDB Connection
 // ===============================
 mongoose
   .connect(process.env.MONGO_URI)
@@ -41,36 +40,36 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // ===============================
-// 🟢 API Routes
+// Routes
 // ===============================
-import quizRoutes from "./routes/quizRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import quizRoutes from "./routes/quizRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
-app.use("/api/quiz", quizRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/quiz", quizRoutes);
 app.use("/api/user", userRoutes);
 
-// Test route
+// Test API
 app.get("/api/test", (req, res) => {
   res.json({ message: "API working!" });
 });
 
 // ===============================
-// 🟢 Serve React in Production
+// Serve React in Production
 // ===============================
 if (process.env.NODE_ENV === "production") {
   const clientBuildPath = path.join(__dirname, "../client/build");
   app.use(express.static(clientBuildPath));
 
-  // Catch-all route (exclude /api)
+  // Catch-all for React routes (exclude /api)
   app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(clientBuildPath, "index.html"));
   });
 }
 
 // ===============================
-// 🟢 Start Server
+// Start Server
 // ===============================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
