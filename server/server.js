@@ -65,9 +65,8 @@ if (process.env.NODE_ENV === "production") {
   const clientBuildPath = path.join(__dirname, "../client/build");
   app.use(express.static(clientBuildPath));
 
-  // Safe catch-all: ignore API routes
-  app.get("*", (req, res, next) => {
-    if (req.path.startsWith("/api")) return next();
+  // ⚡ Safe catch-all route that excludes /api
+  app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(clientBuildPath, "index.html"));
   });
 }
