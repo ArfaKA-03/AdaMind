@@ -6,13 +6,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // ===============================
-// 🟢 Load .env from server folder
+// 🟢 Load .env
 // ===============================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({
-  path: path.join(__dirname, ".env"), // <<---- FIX
+  path: path.join(__dirname, ".env"),
 });
 
 // ===============================
@@ -20,18 +20,19 @@ dotenv.config({
 // ===============================
 const app = express();
 
+// ===============================
+// 🟢 Middleware
+// ===============================
+app.use(express.json());
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "*" // Allow all origins in production
+        ? "*" // allow all origins in prod
         : "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
-app.use(express.json());
 
 // ===============================
 // 🟢 MongoDB Connection
@@ -42,7 +43,7 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // ===============================
-// 🟢 Import Routes
+// 🟢 API Routes
 // ===============================
 import quizRoutes from "./routes/quizRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -58,13 +59,17 @@ app.get("/api/test", (req, res) => {
 });
 
 // ===============================
-// 🟢 Serve React Frontend in Production
+// 🟢 Serve React in Production
 // ===============================
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"))
-  );
+  const clientBuildPath = path.join(__dirname, "../client/build");
+  app.use(express.static(clientBuildPath));
+
+  // Safe catch-all: ignore API routes
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(clientBuildPath, "index.html"));
+  });
 }
 
 // ===============================
