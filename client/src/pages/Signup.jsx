@@ -8,13 +8,14 @@ function Signup({ onSignupSuccess }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const API_URL = process.env.REACT_APP_API_URL; // dynamic
+  // ✅ Fallback to localhost if REACT_APP_API_URL is not set
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/signup`, {
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
