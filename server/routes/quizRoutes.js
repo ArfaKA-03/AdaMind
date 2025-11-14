@@ -1,36 +1,66 @@
 // routes/quizRoutes.js
 import express from "express";
-import User from "../models/User.js";
 import dotenv from "dotenv";
+import User from "../models/User.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-dotenv.config();
+dotenv.config({ path: "./.env" });
 
 const router = express.Router();
+
+// ---------------------------
+// 🟢 Initialize Gemini
+// ---------------------------
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// -------- QUIZ GENERATION --------
+// ---------------------------
+// 🟢 Helper: Safe JSON Parser
+// ---------------------------
+function safeJSON(text) {
+  try {
+    const cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+    return JSON.parse(cleaned);
+  } catch (err) {
+    console.error("❌ JSON Parse Error:", err);
+    return null;
+  }
+}
+
+// ---------------------------
+// 🟢 QUIZ GENERATION
+// ---------------------------
 router.post("/generate", async (req, res) => {
   const { topic } = req.body;
+
   if (!topic)
-    return res
-      .status(400)
-      .json({ success: false, message: "Topic is required." });
+    return res.status(400).json({ success: false, message: "Topic is required." });
 
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
     const prompt = `
-    Generate 5 multiple-choice questions about "${topic}".
-    Each question must have:
-    - "question": The question text
-    - "options": An array of 4 choices
-    - "answer": The correct option text
-    Return ONLY a pure JSON array, no markdown, no extra text.
+    Generate EXACTLY 5 multiple-choice questions about "${topic}".
+    Format MUST be:
+    [
+      {
+        "question": "...",
+        "options": ["A", "B", "C", "D"],
+        "answer": "A"
+      }
+    ]
+    Return ONLY the JSON array.
     `;
 
     const result = await model.generateContent(prompt);
-    let text = result.response.text().trim().replace(/```json|```/g, "");
-    const quiz = JSON.parse(text);
+    const text = result.response.text();
+    const quiz = safeJSON(text);
+
+    if (!quiz)
+      return res.status(500).json({ success: false, message: "Model returned invalid JSON." });
+
     res.json({ success: true, quiz });
   } catch (error) {
     console.error("❌ Quiz generation error:", error);
@@ -42,24 +72,27 @@ router.post("/generate", async (req, res) => {
   }
 });
 
-// -------- QUIZ SUMMARIZATION --------
+// ---------------------------
+// 🟢 QUIZ SUMMARY
+// ---------------------------
 router.post("/summarize", async (req, res) => {
   try {
     const { quiz, userId, topic, correctCount } = req.body;
-    if (!quiz || quiz.length === 0) {
+
+    if (!quiz || quiz.length === 0)
       return res.json({ success: false, summary: "No quiz data provided." });
-    }
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
     const summaryPrompt = `
     Summarize this quiz in 3–4 lines:
     ${JSON.stringify(quiz, null, 2)}
-    Highlight the main ideas and topic.
     `;
 
     const result = await model.generateContent(summaryPrompt);
     const summary = result.response.text();
 
+    // Save progress if user exists
     if (userId) {
       const user = await User.findById(userId);
       if (user) {
@@ -79,27 +112,36 @@ router.post("/summarize", async (req, res) => {
   }
 });
 
-// -------- EXPLANATION FOR WRONG ANSWERS --------
+// ---------------------------
+// 🟢 EXPLAIN WRONG ANSWERS
+// ---------------------------
 router.post("/explain", async (req, res) => {
   try {
     const { wrongQuestions } = req.body;
-    if (!wrongQuestions || wrongQuestions.length === 0) {
+
+    if (!wrongQuestions || wrongQuestions.length === 0)
       return res.json({ success: false, explanations: [] });
-    }
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const explainPrompt = `
-    For each of these quiz questions, give a 2–3 line explanation of why the correct answer is right.
-    Questions:
+    Explain why each correct answer below is correct.
+    Return ONLY JSON:
+    [
+      {
+        "question": "...",
+        "explanation": "..."
+      }
+    ]
+    Data:
     ${JSON.stringify(wrongQuestions, null, 2)}
-    Respond strictly in JSON as an array like:
-    [{"question": "...", "explanation": "..."}]
     `;
 
     const result = await model.generateContent(explainPrompt);
-    const text = result.response.text().trim().replace(/```json|```/g, "");
-    const explanations = JSON.parse(text);
+    const explanations = safeJSON(result.response.text());
+
+    if (!explanations)
+      return res.json({ success: false, explanations: [] });
 
     res.json({ success: true, explanations });
   } catch (err) {
@@ -108,7 +150,9 @@ router.post("/explain", async (req, res) => {
   }
 });
 
-// -------- GENERATE FLASHCARDS --------
+// ---------------------------
+// 🟢 GENERATE FLASHCARDS
+// ---------------------------
 router.post("/flashcards", async (req, res) => {
   try {
     const { topic, userId } = req.body;
@@ -117,19 +161,22 @@ router.post("/flashcards", async (req, res) => {
       return res.status(400).json({ success: false, message: "Topic is required." });
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
     const flashPrompt = `
-    Generate 5 concise flashcards on "${topic}".
-    Each flashcard should have:
-    - "question": a short concept or term to recall
-    - "answer": a brief and clear explanation
-    Return ONLY JSON array format like:
-    [{"question": "...", "answer": "..."}]
+    Generate EXACTLY 5 flashcards for topic "${topic}".
+    Return ONLY JSON array:
+    [
+      { "question": "...", "answer": "..." }
+    ]
     `;
 
     const result = await model.generateContent(flashPrompt);
-    const text = result.response.text().trim().replace(/```json|```/g, "");
-    const flashcards = JSON.parse(text);
+    const flashcards = safeJSON(result.response.text());
 
+    if (!flashcards)
+      return res.status(500).json({ success: false, message: "Model returned invalid JSON." });
+
+    // Save to user if exists
     if (userId) {
       const user = await User.findById(userId);
       if (user) {
@@ -146,31 +193,31 @@ router.post("/flashcards", async (req, res) => {
   }
 });
 
-// -------- GET USER PROGRESS --------
+// ---------------------------
+// 🟢 GET USER
+// ---------------------------
 router.get("/user/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     res.json({ success: true, user });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error fetching user data" });
+    res.status(500).json({ success: false, message: "Error fetching user data" });
   }
 });
 
-// -------- GET SAVED FLASHCARDS FOR USER --------
+// ---------------------------
+// 🟢 GET FLASHCARD PROGRESS
+// ---------------------------
 router.get("/user/:id/flashcardsprogress", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
 
-    if (!user) {
+    if (!user)
       return res.status(404).json({ success: false, message: "User not found" });
-    }
 
-    // Return user's saved flashcards
     res.json({
       success: true,
-      flashcards: user.flashcards || [], // empty array if none
+      flashcards: user.flashcards || [],
     });
   } catch (err) {
     console.error("❌ Error fetching flashcards:", err);
