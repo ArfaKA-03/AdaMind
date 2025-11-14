@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import QuizPage from "./pages/QuizPage";
 import ResultPage from "./pages/ResultPage";
 import Flashcards from "./pages/Flashcards";
-import FlashcardsProgress from "./pages/FlashcardProgress"; // ✅ Correct import name
+import FlashcardProgress from "./pages/FlashcardProgress"; // ✅ Correct import
 import Progress from "./pages/Progress";
 import LoginPage from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -39,6 +39,7 @@ function App() {
         <Navbar user={user} onLogout={handleLogout} />
         <div className="app-content">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route
               path="/login"
@@ -49,24 +50,24 @@ function App() {
               element={<Signup onSignupSuccess={handleLoginSuccess} />}
             />
 
+            {/* Routes for logged-in users */}
             {user ? (
               <>
                 <Route path="/landing" element={<LandingPage />} />
                 <Route path="/quiz" element={<QuizPage />} />
                 <Route path="/result" element={<ResultPage />} />
-                <Route
-                  path="/flashcards"
-                  element={<Flashcards />} // ✅ Corrected here
-                />
+                <Route path="/flashcards" element={<Flashcards />} />
                 <Route path="/progress" element={<Progress />} />
+
+                {/* ✅ Use consistent route name */}
+                <Route path="/flashcardsprogress" element={<FlashcardProgress />} />
               </>
             ) : (
               <>
+                {/* If not logged in, redirect protected routes to login */}
                 <Route
                   path="/landing"
-                  element={
-                    <LoginPage onLoginSuccess={handleLoginSuccess} />
-                  }
+                  element={<LoginPage onLoginSuccess={handleLoginSuccess} />}
                 />
                 <Route
                   path="/quiz"
@@ -77,13 +78,12 @@ function App() {
                   element={<LoginPage onLoginSuccess={handleLoginSuccess} />}
                 />
                 <Route
-                  path="/flashcardsprogress"
-                  element={<FlashcardsProgress/>} // ✅ Corrected here
-                />
-                <Route
                   path="/progress"
                   element={<LoginPage onLoginSuccess={handleLoginSuccess} />}
                 />
+
+                {/* Optional: allow logged-out users to see flashcard progress */}
+                <Route path="/flashcardsprogress" element={<FlashcardProgress />} />
               </>
             )}
           </Routes>

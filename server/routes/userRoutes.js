@@ -66,20 +66,19 @@ router.get("/:userId", async (req, res) => {
 ====================================== */
 router.get("/:userId/flashcardsprogress", async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId).select("flashcardsprogress");
+    const user = await User.findById(req.params.userId).select("flashcards"); // ✅ correct field
     if (!user)
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" });
 
     res.json({
       success: true,
-      flashcards: user.flashcardsprogress || [], // ✅ Correct field name
+      flashcards: user.flashcards || [], // ✅ use correct field
     });
   } catch (err) {
     console.error("❌ Error fetching flashcards:", err);
     res.status(500).json({ success: false, message: "Server error" });
   }
 });
+
 
 export default router;

@@ -1,5 +1,17 @@
+// models/User.js
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+
+const flashcardSchema = new mongoose.Schema({
+  topic: { type: String, required: true },
+  data: [
+    {
+      question: { type: String, required: true },
+      answer: { type: String, required: true },
+    },
+  ],
+  date: { type: Date, default: Date.now },
+});
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -14,29 +26,10 @@ const userSchema = new mongoose.Schema({
     },
   ],
 
-  flashcards: [
-    {
-      topic: { type: String, required: true },
-      data: [
-        {
-          question: { type: String, required: true },
-          answer: { type: String, required: true },
-        },
-      ],
-      date: { type: Date, default: Date.now },
-    },
-  ],
-
-  flashcardsprogress: [
-    {
-      topic: String,
-      data: [{ question: String, answer: String }],
-      date: { type: Date, default: Date.now },
-    },
-  ],
+  flashcards: [flashcardSchema], // ✅ Only this
 });
 
-// Hash password
+// Hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);

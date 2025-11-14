@@ -10,9 +10,8 @@ import quizRoutes from "./routes/quizRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
-dotenv.config();
+dotenv.config({ path: path.resolve() });
 const app = express();
-
 // ===============================
 // ✅ Middleware
 // ===============================

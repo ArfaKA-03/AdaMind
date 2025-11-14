@@ -1,7 +1,40 @@
 /* ===============================
    🌟 FLASHCARDS PAGE STYLING (Consistent with Landing Page)
    =============================== */
+:root {
+  --bg-color: #f9fafb;
+  --text-color: #111827;
+  --input-bg: #f3f4f6;
+  --input-border: #d1d5db;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(59, 130, 246, 0.15);
+  --button-text: #ffffff;
+}
 
+/* Dark theme overrides */
+body.dark-mode,
+.quiz-container.dark {
+  --bg-color: #160924;
+  --text-color: #f3f4f6;
+  --input-bg: #424142;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
+body.light-mode,
+.quiz-container.light {
+  --bg-color: #907283;
+  --text-color: #000;
+  --input-bg: #605d60;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
 .flashcards-page {
   min-height: 40vh;
   display: flex;

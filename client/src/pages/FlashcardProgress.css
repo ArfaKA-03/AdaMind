@@ -1,202 +1,115 @@
-/* ===============================
-   🌟 FLASHCARDS PAGE STYLING (Consistent with Landing Page)
-   =============================== */
+:root {
+  --bg-color: #f9fafb;
+  --text-color: #111827;
+  --input-bg: #f3f4f6;
+  --input-border: #d1d5db;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(59, 130, 246, 0.15);
+  --button-text: #ffffff;
+}
 
-.flashcards-page {
-  min-height: 40vh;
+/* Dark theme overrides */
+body.dark-mode,
+.quiz-container.dark {
+  --bg-color: #160924;
+  --text-color: #f3f4f6;
+  --input-bg: #424142;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
+body.light-mode,
+.quiz-container.light {
+  --bg-color: #907283;
+  --text-color: #000;
+  --input-bg: #605d60;
+  --input-border: #9e0059;
+  --accent-color: #9e0059;
+  --accent-hover: #96577b;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+  --button-text: #ffffff;
+}
+/* Page padding */
+.flashcardsp-page {
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+  gap: 24px; /* gap between topics */
   background: var(--bg-color, #f9fafb);
+}
+
+/* Topic header */
+.topic-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
   color: var(--text-color, #111827);
-  transition: background 0.3s ease, color 0.3s ease;
 }
-
-
-/* ===============================
-   ☀️ LIGHT & 🌙 DARK THEME
-   =============================== */
-.flashcards-page.light {
-  background: var(--bg-color, #f9fafb);
-  color: var(--text-color, #9e0059);
-}
-
-.flashcards-page.dark {
-  background: #1a0a2b;
+.topic-header .date {
+  font-size: 1rem;
   color: #fff;
+  margin-bottom: 12px;
 }
 
-/* ===============================
-   📦 Container Styling
-   =============================== */
-.flashcards-container {
-  width: 100%;
-  max-width: 700px;
-  padding: 40px 30px;
+/* Horizontal row of flashcards for each topic */
+.topic-flashcardsp {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 6px;
+}
+
+/* Hide scrollbar nicely */
+.topic-flashcardsp::-webkit-scrollbar {
+  height: 6px;
+}
+.topic-flashcardsp::-webkit-scrollbar-thumb {
+  background: rgba(158, 0, 89, 0.5);
+  border-radius: 3px;
+}
+
+/* Flashcard box */
+.flashcardsp-container {
+  min-width: 200px;
+  max-width: 200px;
+  padding: 12px;
   border-radius: 16px;
-  text-align: center;
-  background: var(--card-bg, #ffffff);
-  box-shadow: 0 6px 24px rgba(158, 0, 89, 0.08);
-  transition: all 0.3s ease;
-  justify-content: center;
+  background: var(--card-bg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
 }
 
-/* Light mode container accent */
-.flashcards-page.light .flashcards-container {
-  background: #96577b; /* same soft lavender shade as landing page */
+.flashcardsp-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+/* Light & dark modes */
+.flashcardsp-page.light .flashcards-container {
+  background: #96577b;
   color: #fff;
 }
-
-.flashcards-page.dark .flashcards-container {
+.flashcardsp-page.dark .flashcards-container {
   background: #1e293b;
   color: #fff;
 }
 
-/* Hover effect */
-.flashcards-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
-}
-
-/* ===============================
-   📝 Titles & Subtitles
-   =============================== */
-.flashcards-container h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: #000;
-}
-
-.flashcards-page.dark .flashcards-container h1 {
-  color: #fff;
-}
-
-.flashcards-container .subtitle {
-  margin-bottom: 20px;
-  color: var(--text-color, #000);
-}
-.flashcards-page.dark .flashcards-container .subtitle {
-  color: #fff;
-}
-
-/* ===============================
-   🔤 Input Section
-   =============================== */
-.input-section {
-  margin-bottom: 25px;
-  display: flex;
-  flex-direction: column; /* stack vertically like landing page */
-  align-items: center;
-  gap: 12px;
-}
-
-/* Input styling */
-.input-section input {
-  width: 80%;
-  padding: 12px 14px;
+/* Question & Answer */
+.question {
+  font-weight: 600;
   font-size: 1rem;
-  border-radius: 10px;
-  border: 1.5px solid var(--input-border, #d1d5db);
-  background: var(--input-bg, #f3f4f6);
-  color: var(--text-color, #111827);
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.flashcards-page.dark .input-section input {
-  background: #fff;
-  border-color: #96577b;
-  color: #000;
-}
-
-.input-section input:focus {
-  border-color: var(--accent-color, #9e0059);
-  box-shadow: 0 0 6px var(--accent-glow, rgba(158, 0, 89, 0.25));
-}
-
-/* ===============================
-   🔘 Button
-   =============================== */
-.input-section button {
-  background: #9e0059;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 18px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.input-section button:hover {
-  background: #96577b;
-  transform: translateY(-2px);
-}
-
-.input-section button:disabled {
-  background: #9ca3af;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Dark mode override */
-.flashcards-page.dark .input-section button {
-  background: #9e0059;
   color: #fff;
 }
-
-/* ===============================
-   🧩 Flashcards Grid
-   =============================== */
-.flashcards-list {
-  margin-top: 30px;
-}
-
-.flashcards-list h3 {
-  color: #000;
-  margin-bottom: 16px;
-  font-size: 1.2rem;
-  text-align: left;
-}
-.flashcards-page.dark .flashcards-list h3 {
-  color: #fff;
-}
-.flashcard-grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
-
-/* Flashcard card */
-.flashcard {
-  background: var(--card-bg, #ffffff);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.flashcards-page.dark .flashcard {
-  background: var(--dark-card, #374151);
-}
-
-.flashcard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
-}
-
-/* Text inside flashcard */
-.flashcard h4 {
-  margin-bottom: 8px;
-  color: inherit;
-}
-
-.flashcard p {
-  color: inherit;
-  line-height: 1.4;
+.answer {
+  font-size: 0.9rem;
+  color: #eee;
 }
 
 /* Empty state */
@@ -207,19 +120,17 @@
 .flashcards-page.dark .no-flashcards {
   color: #fff;
 }
-/* ===============================
-   📱 Responsive Design
-   =============================== */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .flashcardsp-container {
+    min-width: 160px;
+    max-width: 160px;
+  }
+}
 @media (max-width: 480px) {
-  .flashcards-container {
-    padding: 30px 20px;
-  }
-
-  .flashcards-container h1 {
-    font-size: 1.6rem;
-  }
-
-  .input-section input {
-    width: 90%;
+  .flashcardsp-container {
+    min-width: 140px;
+    max-width: 140px;
   }
 }
