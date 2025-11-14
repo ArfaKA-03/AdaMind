@@ -1,4 +1,3 @@
-// src/pages/Signup.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
@@ -9,8 +8,7 @@ function Signup({ onSignupSuccess }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // Dynamic API URL from env
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL; // dynamic
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -22,30 +20,21 @@ function Signup({ onSignupSuccess }) {
         body: JSON.stringify({ name, email, password }),
       });
 
-      // Check if backend responded
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
       const data = await res.json();
 
       if (data.success) {
-        // ✅ Save user info to localStorage
         localStorage.setItem("quizwhizz_user", JSON.stringify(data.user));
 
-        // ✅ Optional callback for parent component
         if (onSignupSuccess) onSignupSuccess(data.user);
 
         console.log("Signup successful!");
         navigate("/landing");
       } else {
-        alert(data.message || "Signup failed");
+        alert(data.message || "Signup failed. Please try again.");
       }
     } catch (err) {
       console.error("Signup error:", err);
-      alert(
-        "Signup failed. Please check your network or try again later."
-      );
+      alert("Signup failed. Please check your network or try again later.");
     }
   };
 
