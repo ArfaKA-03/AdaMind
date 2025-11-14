@@ -4,6 +4,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+Signup.jsx:19 
+ POST http://localhost:5000/api/auth/signup net::ERR_FAILED
+onSubmit	@	Signup.jsx:19
+
+Signup.jsx:45 Signup error: TypeError: Failed to fetch
+    at onSubmit (Signup.jsx:19:25)
+onSubmit	@	Signup.jsx:45
+﻿
 
 // ===============================
 // 🟢 Load .env
@@ -29,7 +37,7 @@ app.use(
     origin:
       process.env.NODE_ENV === "production"
         ? "*" // allow all origins in prod
-        : "http://localhost:3000",
+        : "http://localhost:5000",
     credentials: true,
   })
 );
