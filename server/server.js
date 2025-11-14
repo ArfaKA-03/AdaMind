@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({
-  path: path.join(__dirname, ".env"), // <<---- FIX
+  path: path.join(__dirname, ".env"),
 });
 
 // ===============================
@@ -20,6 +20,9 @@ dotenv.config({
 // ===============================
 const app = express();
 
+// ===============================
+// 🟢 Middleware
+// ===============================
 app.use(
   cors({
     origin:
@@ -52,7 +55,9 @@ app.use("/api/quiz", quizRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 
-// Test route
+// ===============================
+// 🟢 Test route
+// ===============================
 app.get("/api/test", (req, res) => {
   res.json({ message: "API working!" });
 });
@@ -60,11 +65,19 @@ app.get("/api/test", (req, res) => {
 // ===============================
 // 🟢 Serve React Frontend in Production
 // ===============================
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"))
-  );
+const isProduction = process.env.NODE_ENV === "production";
+
+if (isProduction) {
+  const clientBuildPath = path.join(__dirname, "../client/build");
+  app.use(express.static(clientBuildPath));
+
+  // Catch all route must be after API routes
+  app.get("*", (req, res) => {
+    // Only serve index.html if the request doesn't start with /api
+    if (!req.path.startsWith("/api")) {
+      res.sendFile(path.join(clientBuildPath, "index.html"));
+    }
+  });
 }
 
 // ===============================
