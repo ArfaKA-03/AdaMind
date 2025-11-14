@@ -4,17 +4,13 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-﻿
 
 // ===============================
 // 🟢 Load .env
 // ===============================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-dotenv.config({
-  path: path.join(__dirname, ".env"),
-});
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 // ===============================
 // 🟢 Initialize App
@@ -25,12 +21,13 @@ const app = express();
 // 🟢 Middleware
 // ===============================
 app.use(express.json());
+
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "*" // allow all origins in prod
-        : "http://localhost:5000",
+        ? process.env.FRONTEND_URL // set FRONTEND_URL in Render env
+        : "http://localhost:3000", // your React dev server
     credentials: true,
   })
 );
@@ -66,7 +63,7 @@ if (process.env.NODE_ENV === "production") {
   const clientBuildPath = path.join(__dirname, "../client/build");
   app.use(express.static(clientBuildPath));
 
-  // ⚡ Safe catch-all route that excludes /api
+  // Catch-all route (exclude /api)
   app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(clientBuildPath, "index.html"));
   });
