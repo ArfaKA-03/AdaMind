@@ -6,7 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // ===============================
-// 🟢 Load .env from server folder
+// 🟢 Load .env
 // ===============================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,18 +23,16 @@ const app = express();
 // ===============================
 // 🟢 Middleware
 // ===============================
+app.use(express.json());
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "*" // Allow all origins in production
+        ? "*" // allow all origins in prod
         : "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
-app.use(express.json());
 
 // ===============================
 // 🟢 MongoDB Connection
@@ -45,7 +43,7 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // ===============================
-// 🟢 Import Routes
+// 🟢 API Routes
 // ===============================
 import quizRoutes from "./routes/quizRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -55,28 +53,22 @@ app.use("/api/quiz", quizRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 
-// ===============================
-// 🟢 Test route
-// ===============================
+// Test route
 app.get("/api/test", (req, res) => {
   res.json({ message: "API working!" });
 });
 
 // ===============================
-// 🟢 Serve React Frontend in Production
+// 🟢 Serve React in Production
 // ===============================
-const isProduction = process.env.NODE_ENV === "production";
-
-if (isProduction) {
+if (process.env.NODE_ENV === "production") {
   const clientBuildPath = path.join(__dirname, "../client/build");
   app.use(express.static(clientBuildPath));
 
-  // Catch all route must be after API routes
-  app.get("*", (req, res) => {
-    // Only serve index.html if the request doesn't start with /api
-    if (!req.path.startsWith("/api")) {
-      res.sendFile(path.join(clientBuildPath, "index.html"));
-    }
+  // Safe catch-all: ignore API routes
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(clientBuildPath, "index.html"));
   });
 }
 
