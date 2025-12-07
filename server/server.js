@@ -6,7 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // ===============================
-// 🟢 Load .env
+// Load .env
 // ===============================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,26 +16,26 @@ dotenv.config({
 });
 
 // ===============================
-// 🟢 Initialize App
+// Initialize App
 // ===============================
 const app = express();
 
 // ===============================
-// 🟢 Middleware
+// Middleware
 // ===============================
 app.use(express.json());
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "*" // allow all origins in prod
+        ? "*"
         : "http://localhost:3000",
     credentials: true,
   })
 );
 
 // ===============================
-// 🟢 MongoDB Connection
+// MongoDB Connection
 // ===============================
 mongoose
   .connect(process.env.MONGO_URI)
@@ -43,7 +43,7 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // ===============================
-// 🟢 API Routes
+// API Routes
 // ===============================
 import quizRoutes from "./routes/quizRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -59,21 +59,21 @@ app.get("/api/test", (req, res) => {
 });
 
 // ===============================
-// 🟢 Serve React in Production
+// Serve React in Production
 // ===============================
 if (process.env.NODE_ENV === "production") {
   const clientBuildPath = path.join(__dirname, "../client/build");
   app.use(express.static(clientBuildPath));
 
-  // Safe catch-all: ignore API routes
-  app.get("/*", (req, res, next) => {
+  // Express 5 compatible fallback
+  app.use((req, res, next) => {
     if (req.path.startsWith("/api")) return next();
     res.sendFile(path.join(clientBuildPath, "index.html"));
   });
 }
 
 // ===============================
-// 🟢 Start Server
+// Start Server
 // ===============================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
