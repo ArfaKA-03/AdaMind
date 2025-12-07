@@ -1,11 +1,11 @@
 // src/pages/LandingPage.jsx
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext"; // import context
+import { ThemeContext } from "../context/ThemeContext";
 import "./LandingPage.css";
 
 const LandingPage = () => {
-  const { darkMode } = useContext(ThemeContext); // use context
+  const { darkMode } = useContext(ThemeContext);
   const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -17,12 +17,16 @@ const LandingPage = () => {
     }
 
     setLoading(true);
+
     try {
-      const response = await fetch("http://localhost:5000/api/quiz/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/quiz/generate`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ topic }),
+        }
+      );
 
       const data = await response.json();
 
@@ -44,7 +48,8 @@ const LandingPage = () => {
       <div className="landing-container">
         <h1>Generate a Quiz with AdaMind</h1>
         <p className="subtitle">
-          Type any topic (like AI, Cloud Computing, or DBMS) and let AdaMind create questions for you.
+          Type any topic (like AI, Cloud Computing, or DBMS) and let AdaMind
+          create questions for you.
         </p>
 
         <input
