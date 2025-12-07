@@ -5,7 +5,7 @@ import "./ResultPage.css";
 
 function ResultPage() {
   const navigate = useNavigate();
-  const { darkMode } = useContext(ThemeContext); // use global theme
+  const { darkMode } = useContext(ThemeContext); // using darkMode so ESLint won't complain
 
   const [topic, setTopic] = useState("");
   const [score, setScore] = useState(null);
@@ -16,15 +16,15 @@ function ResultPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Optional: add a class to body/html if needed
-    // Not required if CSS uses [data-theme] attribute or body classes in ThemeContext
+    // Save dark mode as default on page load
+    document.body.setAttribute("data-theme", darkMode ? "dark" : "light");
 
     setTopic(sessionStorage.getItem("lastTopic") || "N/A");
     setScore(Number(sessionStorage.getItem("lastScore")) || 0);
     setSummary(sessionStorage.getItem("lastSummary") || "Summary not available.");
     const wrong = sessionStorage.getItem("wrongQuestions");
     if (wrong) setWrongQuestions(JSON.parse(wrong));
-  }, []);
+  }, [darkMode]);
 
   const handleShowExplanations = async () => {
     if (explanations.length > 0) {
@@ -51,7 +51,7 @@ function ResultPage() {
   };
 
   return (
-    <div className="result-page">
+    <div className={`result-page ${darkMode ? "dark" : ""}`}>
       <div className="result-card">
         <h2>Quiz Result</h2>
         <p>Topic: <strong>{topic}</strong></p>
@@ -80,8 +80,12 @@ function ResultPage() {
         )}
 
         <div className="result-actions">
-          <button onClick={() => navigate("/landing")} className="secondary-btn">Try Another Quiz</button>
-          <button onClick={() => navigate("/progress")} className="secondary-btn">View Progress</button>
+          <button onClick={() => navigate("/landing")} className="secondary-btn">
+            Try Another Quiz
+          </button>
+          <button onClick={() => navigate("/progress")} className="secondary-btn">
+            View Progress
+          </button>
         </div>
       </div>
     </div>
