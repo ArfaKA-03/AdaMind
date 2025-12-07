@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 
+// Backend API URL (Works locally and in production)
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 function Signup({ onSignupSuccess }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,7 +16,7 @@ function Signup({ onSignupSuccess }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${process.env.FRONTEND_URL}/auth/signup`, {
+      const res = await fetch(`${API_URL}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -22,10 +25,7 @@ function Signup({ onSignupSuccess }) {
       const data = await res.json();
 
       if (data.success) {
-        // ✅ Save user info to localStorage
         localStorage.setItem("quizwhizz_user", JSON.stringify(data.user));
-
-        // ✅ Optional callback for parent component
         if (onSignupSuccess) onSignupSuccess(data.user);
 
         console.log("Signup successful!");
@@ -70,7 +70,6 @@ function Signup({ onSignupSuccess }) {
       </div>
     </div>
   );
-
 }
 
 export default Signup;
