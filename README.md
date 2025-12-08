@@ -26,7 +26,7 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 - **Frontend:** React.js, CSS, JavaScript  
 - **Backend:** Node.js / Express  
 - **Database:** MongoDB  
