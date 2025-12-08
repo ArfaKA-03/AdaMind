@@ -65,3 +65,4 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
+```
