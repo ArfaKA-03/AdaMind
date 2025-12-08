@@ -1,4 +1,4 @@
-## **AdaMind**
+## **🔮AdaMind**
 
 An intelligent and interactive learning platform that generates **topic-based quizzes and flashcards instantly**.  
 Designed to make learning faster, smarter, and more engaging for students, educators, and self-learners.
