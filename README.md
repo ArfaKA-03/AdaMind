@@ -5,7 +5,7 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 
 ---
 
-## Features
+## 🚀 Features
 
 ### 🔹 AI-Powered Quiz Generation
 - Enter any topic  
