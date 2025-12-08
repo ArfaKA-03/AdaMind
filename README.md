@@ -35,6 +35,6 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 ---
 
 ## 📂 Project Structure
-/client → Frontend
+/client → Frontend  
 /server → Backend
 /database → SQL schema and queries
