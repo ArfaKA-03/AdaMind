@@ -16,7 +16,7 @@ function Progress() {
     const fetchProgress = async () => {
       try {
         // ✅ Backend route that returns user progress
-        const res = await fetch(`http://localhost:5000/api/quiz/user/${user._id}`);
+        const res = await fetch(`/api/quiz/user/${user._id}`);
         const data = await res.json();
 
         if (data.success && Array.isArray(data.user.progress)) {

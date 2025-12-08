@@ -18,7 +18,7 @@ function QuizPage() {
     if (!topic.trim()) return alert("Enter a topic first!");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/quiz/generate", {
+      const res = await fetch("/api/quiz/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic: topic.trim() }),
@@ -68,7 +68,7 @@ function QuizPage() {
     sessionStorage.setItem("wrongQuestions", JSON.stringify(wrongQuestions));
 
     try {
-      const response = await fetch("http://localhost:5000/api/quiz/summarize", {
+      const response = await fetch("/api/quiz/summarize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user._id, topic: topic.trim(), quiz, correctCount }),

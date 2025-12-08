@@ -17,7 +17,7 @@ function Flashcards() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/quiz/flashcards", {
+      const res = await fetch("/api/quiz/flashcards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic, userId: user._id }),

@@ -34,7 +34,7 @@ function ResultPage() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/quiz/explain", {
+      const res = await fetch("/api/quiz/explain", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ wrongQuestions }),

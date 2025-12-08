@@ -19,8 +19,7 @@ const LandingPage = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/quiz/generate`,
+      const response = await fetch("/api/quiz/generate",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
