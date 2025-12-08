@@ -38,3 +38,30 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 /client → Frontend  
 /server → Backend  
 /database → SQL schema and queries  
+
+---
+
+## 📸 Screenshots (Add later)
+- Quiz Generation UI  
+- Flashcard View  
+- Saved Items Dashboard  
+
+(Add images inside `/assets` or upload via GitHub)
+
+---
+
+## 🧩 How It Works
+1. User selects **Generate Quiz**  
+2. Enters a topic (e.g., “Operating Systems”, "React Hooks")  
+3. System generates **5 topic-based questions**  
+4. User can save quiz or turn it into flashcards  
+5. Saved items are accessible anytime from the dashboard  
+
+---
+
+## 🏗️ Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
