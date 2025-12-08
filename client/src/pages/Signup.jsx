@@ -12,8 +12,7 @@ function Signup({ onSignupSuccess }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/auth/signup`,
+      const res = await fetch("/auth/signup",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
