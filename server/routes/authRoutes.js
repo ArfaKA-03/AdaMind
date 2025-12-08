@@ -14,7 +14,9 @@ router.post("/signup", async (req, res) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser)
-      return res.json({ success: false, message: "User already exists" });
+      return res
+        .status(400)
+        .json({ success: false, message: "User already exists" });
 
     const newUser = new User({ name, email, password });
     await newUser.save();
@@ -45,11 +47,15 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user)
-      return res.json({ success: false, message: "User not found" });
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch)
-      return res.json({ success: false, message: "Invalid credentials" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentials" });
 
     const token = jwt.sign(
       { id: user._id },
