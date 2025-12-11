@@ -42,8 +42,10 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 ---
 
 ## 📸 Screenshots 
-- Quiz Generation UI  
+- Home Page  
 <img width="1859" height="849" alt="AdaMind Home Page screenshot" src="https://github.com/ArfaKA-03/assets/blob/main/home.jpg" />
+- Quiz Generation UI  
+<img width="1859" height="849" alt="AdaMind Quiz screenshot" src= />
 - Flashcard View  
 - Saved Items Dashboard  
 
