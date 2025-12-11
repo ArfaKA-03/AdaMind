@@ -41,7 +41,7 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 
 ---
 
-## 📸 Screenshots (Add later)
+## 📸 Screenshots 
 - Quiz Generation UI  
 - Flashcard View  
 - Saved Items Dashboard  
