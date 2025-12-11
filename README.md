@@ -46,7 +46,7 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 - Flashcard View  
 - Saved Items Dashboard  
 
-(Add images inside `/assets` or upload via GitHub)
+
 
 ---
 
