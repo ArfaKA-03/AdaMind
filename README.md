@@ -45,10 +45,13 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 - Home Page  
 <img width="1859" height="849" alt="AdaMind Home Page screenshot" src="https://github.com/ArfaKA-03/assets/blob/main/home.jpg" />
 - Quiz Generation UI  
-<img width="1859" height="849" alt="AdaMind Quiz screenshot" src= />
-- Flashcard View  
+<img width="1859" height="849" alt="AdaMind Quiz screenshot" src="https://github.com/ArfaKA-03/assets/blob/main/quiz.jpg" />
+- Flashcard View
+<img width="1859" height="849" alt="AdaMind Flashcard screenshot" src="https://github.com/ArfaKA-03/assets/blob/main/flashcard.jpg" />
 - Saved Items Dashboard  
-
+<img width="1859" height="849" alt="AdaMind Progress screenshot" src="https://github.com/ArfaKA-03/assets/blob/main/progress.jpg" />
+-Profile
+<img width="1859" height="849" alt="AdaMind Profile screenshot" src="https://github.com/ArfaKA-03/assets/blob/main/profile.jpg" />
 
 
 ---
