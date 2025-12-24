@@ -64,7 +64,6 @@ Designed to make learning faster, smarter, and more engaging for students, educa
 5. Saved items are accessible anytime from the dashboard  
 
 ---
-
 ## 🏗️ Installation & Setup
 
 ### 1. Clone the Repository
